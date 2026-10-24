@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "katina-link-manager-pro/coupons",
+    "title": "Katina Coupons",
+    "category": "widgets",
+    "icon": "tag",
+    "description": "A grid or list of coupons and deals.",
+    "textdomain": "katina-link-manager-pro",
+    "attributes": {
+        "ids": { "type": "string", "default": "" },
+        "category": { "type": "string", "default": "" },
+        "tag": { "type": "string", "default": "" },
+        "limit": { "type": "number", "default": 12 },
+        "layout": { "type": "string", "default": "grid" },
+        "columns": { "type": "number", "default": 3 },
+        "expired": { "type": "string", "default": "hide" },
+        "orderby": { "type": "string", "default": "date" },
+        "reveal": { "type": "string", "default": "" }
+    },
+    "supports": { "html": false, "align": [ "wide", "full" ] },
+    "editorScript": "katina-pro-coupons-block",
+    "style": "katina-pro-coupons"
+}

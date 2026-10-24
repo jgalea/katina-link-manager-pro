@@ -1,0 +1,261 @@
+.katina-coupons {
+    --katina-accent: #1d4ed8;
+    --katina-accent-text: #fff;
+    --katina-border: #d1d5db;
+    --katina-muted: #4b5563;
+    --katina-surface: #fff;
+    margin: 1.5em 0;
+}
+
+.katina-coupons .katina-coupons__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max(min(100%, 14rem), calc(100% / var(--katina-coupons-cols, 3) - 1rem)), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.katina-coupons--list .katina-coupons__list {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.katina-coupons--list .katina-coupon {
+    container: katina-coupon / inline-size;
+}
+
+.katina-coupons .katina-coupon {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.katina-coupons .katina-coupon > article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid var(--katina-border);
+    border-radius: 6px;
+    background: var(--katina-surface);
+}
+
+.katina-coupons .katina-coupon.is-featured > article {
+    padding: calc(1rem - 2px);
+    border: 3px solid var(--katina-accent);
+}
+
+.katina-coupons .katina-coupon__featured {
+    align-self: flex-start;
+    margin: 0;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    background: var(--katina-accent);
+    color: var(--katina-accent-text);
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.katina-coupons .katina-coupon__image img {
+    display: block;
+    max-width: 100%;
+    max-height: 4rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.katina-coupons .katina-coupon__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.katina-coupons .katina-coupon__discount {
+    display: inline-block;
+    align-self: flex-start;
+    margin: 0;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    background: #e0e7ff;
+    color: #1e3a8a;
+    font-size: 0.875em;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.katina-coupons .katina-coupon__title {
+    margin: 0;
+    font-size: 1.125em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.katina-coupons .katina-coupon__description {
+    color: var(--katina-muted);
+    font-size: 0.9375em;
+}
+
+.katina-coupons .katina-coupon__description > :first-child { margin-top: 0; }
+.katina-coupons .katina-coupon__description > :last-child { margin-bottom: 0; }
+
+.katina-coupons .katina-coupon__code-row {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.katina-coupons .katina-coupon__code {
+    flex: 1 1 6rem;
+    min-width: 0;
+    padding: 0.5em 0.75em;
+    border: 1px dashed var(--katina-muted);
+    border-radius: 4px;
+    background: #f9fafb;
+    font-size: 0.9375em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    overflow-wrap: break-word;
+}
+
+.katina-coupons .katina-coupon__copy, .katina-coupons .katina-coupon__cta, .katina-coupons .katina-coupon__reveal {
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 0.5em 1em;
+    border: 2px solid var(--katina-accent);
+    border-radius: 4px;
+    font: inherit;
+    font-size: 0.9375em;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.katina-coupons .katina-coupon__copy {
+    background: transparent;
+    color: var(--katina-accent);
+}
+
+.katina-coupons .katina-coupon__copy.is-copied {
+    background: #166534;
+    border-color: #166534;
+    color: #fff;
+}
+
+.katina-coupons .katina-coupon__reveal {
+    display: none;
+    margin-top: auto;
+    border-style: dashed;
+    background: #eef2ff;
+    color: var(--katina-accent);
+}
+
+.katina-coupons .katina-coupon.is-concealed .katina-coupon__reveal {
+    display: block;
+}
+
+.katina-coupons .katina-coupon.is-concealed .katina-coupon__code-row {
+    display: none;
+}
+
+.katina-coupons .katina-coupon__cta {
+    display: block;
+    background: var(--katina-accent);
+    color: var(--katina-accent-text);
+}
+
+/* Themes style content links with selectors like `.entry p a:hover`, so every link state is restated here. */
+.katina-coupons .katina-coupon__cta:is(:link, :visited, :hover, :focus, :active) {
+    color: var(--katina-accent-text);
+    text-decoration: none;
+}
+
+.katina-coupons .katina-coupon__cta:active,
+.katina-coupons .katina-coupon__copy:active,
+.katina-coupons .katina-coupon__reveal:active {
+    filter: brightness(0.85);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .katina-coupons .katina-coupon__cta:hover, .katina-coupons .katina-coupon__copy:hover:not(.is-copied), .katina-coupons .katina-coupon__reveal:hover {
+        filter: brightness(0.92);
+    }
+}
+
+.katina-coupons .katina-coupon__copy:focus-visible, .katina-coupons .katina-coupon__cta:focus-visible, .katina-coupons .katina-coupon__reveal:focus-visible {
+    outline: 3px solid #f59e0b;
+    outline-offset: 2px;
+}
+
+.katina-coupons .katina-coupon__valid, .katina-coupons .katina-coupon__expired {
+    margin: 0;
+    color: var(--katina-muted);
+    font-size: 0.8125em;
+}
+
+.katina-coupons .katina-coupon.is-expired > article {
+    background: #f3f4f6;
+}
+
+.katina-coupons .katina-coupon.is-expired .katina-coupon__image img {
+    filter: grayscale(1);
+}
+
+.katina-coupons .katina-coupon.is-expired .katina-coupon__discount {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.katina-coupons .katina-coupon.is-expired .katina-coupon__title {
+    text-decoration: line-through;
+}
+
+.katina-coupons .katina-coupon.is-expired .katina-coupon__expired {
+    margin-top: auto;
+    font-weight: 700;
+}
+
+.katina-coupons .screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+@container katina-coupon (min-width: 34rem) {
+    @media (min-width: 56rem) {
+        .katina-coupons--list .katina-coupon > article {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .katina-coupons--list .katina-coupon__image {
+            flex: 0 0 8rem;
+        }
+
+        .katina-coupons--list .katina-coupon__code-row, .katina-coupons--list .katina-coupon__reveal {
+            margin-top: 0;
+            max-width: 24rem;
+        }
+
+        .katina-coupons--list .katina-coupon__cta {
+            align-self: flex-start;
+        }
+    }
+}
