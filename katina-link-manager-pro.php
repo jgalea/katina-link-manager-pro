@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Katina Link Manager Pro
  * Description: Pro add-on for Katina Link Manager. Adds auto-linking, content gap analysis, AI suggestions, coupons and deals, and a REST API.
- * Version: 1.3.2
+ * Version: 1.3.3
  * Requires at least: 6.2
  * Requires PHP: 8.0
  * Author: RebelCode
@@ -12,13 +12,14 @@
  * Text Domain: katina-link-manager-pro
  * Domain Path: /languages
  * Update URI: https://github.com/jgalea/katina-link-manager-pro
+ * Requires Plugins: katina-link-manager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'KATINA_PRO_VERSION', '1.3.2' );
+define( 'KATINA_PRO_VERSION', '1.3.3' );
 define( 'KATINA_PRO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KATINA_PRO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'KATINA_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

@@ -18,6 +18,7 @@ class KATINA_PRO_Link_Opportunities {
     const CACHE_TTL      = 12 * HOUR_IN_SECONDS;
     const GEN_OPTION     = 'katinapro_opportunities_gen';
     const SCANS_PER_LOAD = 5;
+    const KEYWORD_META   = '_katinapro_link_keyword';
 
     public static function init() {
         // The index lives in the free plugin. Without it there is nothing to read.
@@ -27,6 +28,8 @@ class KATINA_PRO_Link_Opportunities {
         }
 
         add_action( 'admin_menu', array( __CLASS__, 'register_menu' ) );
+        add_action( 'add_meta_boxes', array( __CLASS__, 'add_keyword_meta_box' ) );
+        add_action( 'save_post', array( __CLASS__, 'save_keyword' ), 10, 2 );
         add_action( 'admin_post_katinapro_insert_internal_link', array( __CLASS__, 'handle_insert_link' ) );
     }
 
@@ -35,6 +38,43 @@ class KATINA_PRO_Link_Opportunities {
             return;
         }
         add_action( 'save_post', array( __CLASS__, 'flush_on_save' ), 10, 2 );
+    }
+
+    public static function add_keyword_meta_box() {
+        add_meta_box(
+            'katinapro-link-keyword',
+            __( 'Link opportunity keyword', 'katina-link-manager-pro' ),
+            array( __CLASS__, 'render_keyword_meta_box' ),
+            KATINA_Link_Index::scannable_post_types(),
+            'side',
+            'low'
+        );
+    }
+
+    public static function render_keyword_meta_box( $post ) {
+        wp_nonce_field( 'katinapro_save_keyword', 'katinapro_keyword_nonce' );
+        ?>
+        <p>
+            <input type="text" class="widefat" name="katinapro_link_keyword" value="<?php echo esc_attr( get_post_meta( $post->ID, self::KEYWORD_META, true ) ); ?>" />
+        </p>
+        <p class="description"><?php esc_html_e( 'Phrase other posts use to mention this one. Leave empty to match on the title.', 'katina-link-manager-pro' ); ?></p>
+        <?php
+    }
+
+    public static function save_keyword( $post_id, $post ) {
+        if ( ! isset( $_POST['katinapro_keyword_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['katinapro_keyword_nonce'] ) ), 'katinapro_save_keyword' ) ) {
+            return;
+        }
+        if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+            return;
+        }
+
+        $keyword = isset( $_POST['katinapro_link_keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['katinapro_link_keyword'] ) ) : '';
+        if ( '' === $keyword ) {
+            delete_post_meta( $post_id, self::KEYWORD_META );
+        } else {
+            update_post_meta( $post_id, self::KEYWORD_META, $keyword );
+        }
     }
 
     public static function flush_on_save( $post_id, $post ) {
@@ -172,7 +212,7 @@ class KATINA_PRO_Link_Opportunities {
      * trailing parenthetical or subtitle that would never appear verbatim.
      */
     public static function opportunity_keyword( $target ) {
-        $custom = get_post_meta( $target->ID, '_katinapro_link_keyword', true );
+        $custom = get_post_meta( $target->ID, self::KEYWORD_META, true );
         if ( ! empty( $custom ) ) {
             return trim( $custom );
         }
